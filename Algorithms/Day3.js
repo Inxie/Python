@@ -68,6 +68,7 @@ function longestPalindrome(str) {
             //logic
         }
 }
+}
 
 console.log(longestPalindrome("my favorite racecar erupted"));
 console.log(longestPalindrome("nada"));
