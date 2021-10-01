@@ -1,0 +1,17 @@
+#chess {
+    display: flex;
+    margin: auto;
+}
+
+.colum, .row, .row2 {
+    width: 40px;
+    height: 40px;
+}
+
+.row {
+    background-color: red;
+}
+
+.row2 {
+    background-color: black;
+}
