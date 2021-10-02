@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th scope="col">First Name</th>
+                <th scope="col">Last Name</th>
+                <th scope="col">Full Name</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+            {% for i in range(1) %}
+                <td>{{ users[0]['first_name'] }}</td>
+            {% endfor %}
+            {% for i in range(1) %}
+                <td>{{ users[0]['last_name'] }}</td>
+            {% endfor %}
+            {% for i in range(1) %}
+                <td>{{ users[0]['first_name'] + ' ' + users[0]['last_name'] }}</td>
+            {% endfor %}
+            </tr>
+            <tr>
+                {% for i in range(1) %}
+                    <td>{{ users[1]['first_name'] }}</td>
+                {% endfor %}
+                {% for i in range(1) %}
+                    <td>{{ users[1]['last_name'] }}</td>
+                {% endfor %}
+                {% for i in range(1) %}
+                    <td>{{ users[1]['first_name'] + ' ' + users[1]['last_name'] }}</td>
+                {% endfor %}
+            </tr>
+            <tr>
+                {% for i in range(1) %}
+                    <td>{{ users[2]['first_name'] }}</td>
+                {% endfor %}
+                {% for i in range(1) %}
+                    <td>{{ users[2]['last_name'] }}</td>
+                {% endfor %}
+                {% for i in range(1) %}
+                    <td>{{ users[2]['first_name'] + ' ' + users[2]['last_name'] }}</td>
+                {% endfor %}
+            </tr>
+            <tr>
+                {% for i in range(1) %}
+                    <td>{{ users[3]['first_name'] }}</td>
+                {% endfor %}
+                {% for i in range(1) %}
+                    <td>{{ users[3]['last_name'] }}</td>
+                {% endfor %}
+                {% for i in range(1) %}
+                    <td>{{ users[3]['first_name'] + ' ' + users[3]['last_name'] }}</td>
+                {% endfor %}
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
