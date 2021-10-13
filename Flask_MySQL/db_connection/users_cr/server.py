@@ -1,14 +1,24 @@
-from flask import Flask, render_template
-
+from flask import Flask, render_template, request, redirect, session
+from user import Users
 app = Flask(__name__)
 
 @app.route("/")
 def read_all():
-    return render_template("read_all.html")
+    users = Users.read_all()
+    return render_template("read_all.html", users=users)
 
-@app.route("/create")
+@app.route("/create", methods=["POST", "GET"])
 def insert_new():
-    return render_template("create.html")
+    if request.method == "POST":
+        data = {
+            "first_name": request.form["first_name"],
+            "last_name": request.form["last_name"],
+            "email": request.form["email"]
+        }
+        Users.insert_new(data)
+        return redirect("/")
+    else:
+        return render_template("create.html")
 
 if __name__ == "__main__":
     app.run(debug=True)

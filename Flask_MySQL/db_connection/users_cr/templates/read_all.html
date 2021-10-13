@@ -8,8 +8,16 @@
 </head>
 <body>
     <h1>All Users</h1>
-    <p>First Name: {{first_name}}</p>
-    <p>Last Name: {{last_name}}</p>
-    <p>Email: {{email}}</p>
+    <table>
+        {% for u in users %}
+        <tr>
+            <td>
+                <h3>{{u.first_name}}</h3>
+                <h3>{{u.last_name}}</h3>
+                <h3>{{u.email}}</h3>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
 </body>
 </html>
