@@ -54,6 +54,7 @@ def edit_user(id):
 
 @app.route("/edituser/<int:id>", methods=["POST"])
 def edit_user_db(id):
+    print (request.form)
     data = {
         "first_name": request.form["first_name"],
         "last_name": request.form["last_name"],
