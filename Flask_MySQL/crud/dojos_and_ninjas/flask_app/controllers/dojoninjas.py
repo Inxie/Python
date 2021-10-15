@@ -1,9 +1,8 @@
-from flask_app import app
 from flask import Flask, render_template, request, redirect, session, flash
-from flask_app.config.mysqlconnection import connectToMySQL
+from flask_app import app
 from flask_app.models.dojoninja import Dojos
 from flask_app.models.dojoninja import Ninjas
-app = Flask(__name__)
+
 
 
 @app.route("/")
