@@ -1,4 +1,12 @@
 from flask_app import app
-from flask import render_template,redirect,request,session,flash
-from dojoninja import Ninjas
-from dojoninja import Dojos
+from flask import Flask, render_template, request, redirect, session, flash
+from flask_app.config.mysqlconnection import connectToMySQL
+from flask_app.models.dojoninja import Dojos
+from flask_app.models.dojoninja import Ninjas
+app = Flask(__name__)
+
+
+@app.route("/")
+def all_dojos():
+    dojos = Dojos.all_dojos()
+    return render_template("dojos.html", dojos=dojos)
