@@ -1,5 +1,5 @@
 from flask_app import app
-from flask import Flask, render_template, request, redirect, session
+from flask import Flask, render_template, request, redirect, session, flash
 from flask_app.config.mysqlconnection import connectToMySQL
 from flask_app.models.user import Users
 app = Flask(__name__)
