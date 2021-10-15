@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dojos</title>
+</head>
+<body>
+    <h1>All Dojos</h1>
+    <a href="/">Home</a>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+        </tr>
+        {% for d in dojos %}
+        <tr>
+            <td>{{d.id}}</td>
+            <td>{{d.name}}</td>
+            <td>
+                <a href="/user/{{u.id}}">Show</a>
+                <a href="/edit/{{u.id}}">Edit</a>
+                <a href="/delete/{{u.id}}">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
