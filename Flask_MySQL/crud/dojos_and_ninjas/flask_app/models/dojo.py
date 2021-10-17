@@ -26,36 +26,48 @@ class Dojos:
         return connectToMySQL("dojos_and_ninjas_schema").query_db(query,data)
     
     # @classmethod
-    # def one_dojo(cls):
+    # def one_dojo_ninjas(cls):
     #     query = "SELECT * FROM dojos JOIN ninjas ON dojos.id = ninjas.dojo_id"
     #     one_dojo_ninjas = connectToMySQL("dojos_and_ninjas_schema").query_db(query)
-    #     dojos_and_ninjas_schema = []
+    #     dojos_ninjas_both = []
 
-    #     for ninja1 in one_dojo_ninjas:
-    #         ninjas_instance = Dojos(ninja1)
+    #     for dojosninjas in one_dojo_ninjas:
+    #         ninjas_instance = Dojos(dojosninjas)
 
     #         ninjas_data = {
-    #             "id": ninja1["id"],
-    #             "first_name": ninja1["first_name"],
-    #             "last_name": ninja1["last_name"],
-    #             "age": ninja1["age"],
-    #             "created_at": ninja1["created_at"],
-    #             "updated_at": ninja1["updated_at"],
-    #             "dojo_id" : ninja1["dojo_id"]
+    #             "id": dojosninjas["id"],
+    #             "first_name": dojosninjas["first_name"],
+    #             "last_name": dojosninjas["last_name"],
+    #             "age": dojosninjas["age"],
+    #             "created_at": dojosninjas["created_at"],
+    #             "updated_at": dojosninjas["updated_at"],
+    #             "dojo_id" : dojosninjas["dojo_id"]
     #         }
     #         ninjas_instance.ninja = ninja.Ninjas(ninjas_data)
 
-    #         dojos_and_ninjas_schema.ninjas.append(ninjas_instance)
+    #         dojos_ninjas_both.append(ninjas_instance)
 
-    #     return dojos_and_ninjas_schema
-    
-    # @classmethod
-    # def all_ninjas(cls):
-    #     query = "SELECT * FROM dojos JOIN ninjas ON dojos.id=ninjas.id ORDER BY id DESC"
-    #     db_ninjas = connectToMySQL("dojos_and_ninjas_schema").query_db(query)
-    #     ninjas = []
+    #     return dojos_ninjas_both
 
-    #     for n in db_ninjas:
-    #         ninjas.append(Dojos(n))
+    @classmethod
+    def one_dojos_ninjas(cls,data):
+        query = "SELECT * FROM dojos LEFT JOIN ninjas ON dojos.id = ninjas.dojo_id WHERE ninjas.dojo_id = %(id)s"
+        all_dojos_ninjas = connectToMySQL("dojos_and_ninjas_schema").query_db(query,data)
         
-    #     return ninjas
+        dojo_one = Dojos(all_dojos_ninjas[0])
+
+        for dojosninjas in all_dojos_ninjas:
+            ninjas_data = {
+                "id": dojosninjas["id"],
+                "first_name": dojosninjas["first_name"],
+                "last_name": dojosninjas["last_name"],
+                "age": dojosninjas["age"],
+                "created_at": dojosninjas["created_at"],
+                "updated_at": dojosninjas["updated_at"],
+                "dojo_id" : dojosninjas["dojo_id"]
+            }
+
+            dojo_one.ninjas.append(ninja.Ninjas(ninjas_data))
+
+        return dojo_one
+

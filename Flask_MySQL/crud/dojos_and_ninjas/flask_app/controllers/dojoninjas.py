@@ -19,24 +19,24 @@ def new_dojo():
     else:
         return render_template("dojos.html")
 
-# @app.route("/dojo/<int:id>")
-# def show_one(id):
-#     data = {
-#         "id":id
-#     }
-#     dojo = Dojos.one_dojo(data)
-#     return render_template("one_dojo.html", dojo=dojo)
+@app.route("/newninja", methods=["POST", "GET"])
+def new_ninja():
+    if request.method == "POST":
+        data = {
+            "first_name": request.form["first_name"],
+            "last_name": request.form["last_name"],
+            "age": request.form["age"],
+            "dojo_id": request.form["dojo_id"]
+        }
+        Ninjas.new_ninja(data)
+        return redirect("/")
+    else:
+        return render_template("new_ninja.html")
 
-# @app.route("/newninja", methods=["POST", "GET"])
-# def new_ninja():
-#     if request.method == "POST":
-#         data = {
-#             "first_name": request.form["first_name"],
-#             "last_name": request.form["last_name"],
-#             "age": request.form["age"],
-#             "dojo_id": request.form["dojo_id"]
-#         }
-#         Ninjas.new_ninja(data)
-#         return redirect("/")
-#     else:
-#         return render_template("new_ninja.html")
+@app.route("/dojo/<int:id>")
+def show_one_dojo(id):
+    data = {
+        "id":id
+    }
+    dojos_ninjas = Dojos.one_dojos_ninjas(data)
+    return render_template("one_dojo.html", dojos_ninjas=dojos_ninjas)
