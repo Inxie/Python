@@ -4,8 +4,7 @@ from flask import flash
 import re
 EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$') 
 
-
-class Register:
+class User:
     def __init__(self,data):
         self.id = data["id"]
         self.first_name = data["first_name"]
@@ -17,7 +16,7 @@ class Register:
     
     @staticmethod
     def validate_registration(data):
-        is_valid = True # we assume this is true
+        is_valid = True
         if len(data['first_name']) < 2:
             flash("First name must be at least 2 characters.")
             is_valid = False
@@ -28,7 +27,7 @@ class Register:
             flash("Email cannot be blank.")
             is_valid = False
         if not EMAIL_REGEX.match(data['email']): 
-            flash("Invalid email address!")
+            flash("Invalid email address.")
             is_valid = False
         if len(data['password']) < 8:
             flash("Password must be at least 8 characters.")
@@ -39,15 +38,29 @@ class Register:
         return is_valid
 
     @classmethod
-    def save_registration(cls,data):
-        query = "INSERT INTO accounts (first_name, last_name, email, password, confirm_password) VALUES (%(first_name)s, %(last_name)s, %(email)s, %(password)s, %(confirm_password)s)"
-        return connectToMySQL("login_and_registration_schema").query_db(query,data)
+    def save(cls,data):
+        query = "INSERT INTO users (first_name, last_name, email, password, confirm_password) VALUES (%(first_name)s, %(last_name)s, %(email)s, %(password)s, %(confirm_password)s)"
+        return connectToMySQL("users_schema").query_db(query,data)
     
     @classmethod
+    def get_all(cls):
+        query = "SELECT * FROM users"
+        results = connectToMySQL("users_schema").query_db(query,data)
+        users = []
+        for one in results:
+            users.append(User(one))
+        return users
+    
+    @classmethod
+    def check_by_id(cls,data):
+        query = "SELECT * FROM users WHERE id=%(id)s"
+        results = connectToMySQL("users_schema").query_db(query,data)
+        return User(results[0])
+
+    @classmethod
     def check_by_email(cls,data):
-        query = "SELECT * FROM accounts WHERE email = %(email)s;"
-        result = connectToMySQL("login_and_registration_schema").query_db(query,data)
-        # Didn't find a matching user
-        if len(result) < 1:
+        query = "SELECT * FROM users WHERE email = %(email)s;"
+        results = connectToMySQL("users_schema").query_db(query,data)
+        if len(results) < 1:
             return False
-        return cls(result[0])
+        return User(results[0])
