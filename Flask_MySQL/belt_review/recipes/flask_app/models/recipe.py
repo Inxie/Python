@@ -17,7 +17,10 @@ class Recipe:
     
     @classmethod
     def new_recipe(cls,data):
-        query = "INSERT INTO recipes (name, made_on, under_30, description, instructions) VALUES (%(name)s, %(made_on)s, %(under_30)s, %(description)s, %(instructions)s)"
+        print(data.get("user_id"))
+        print(type(data.get("user_id"))) 
+        query = f"INSERT INTO recipes (name, made_on, under_30, description, instructions, users_id) VALUES (%(name)s, %(made_on)s, %(under_30)s, %(description)s, %(instructions)s, {data['users_id']})"
+        print(query)
         return connectToMySQL("users_recipes_schema").query_db(query,data)
     
     @staticmethod

@@ -69,23 +69,8 @@ class User:
     
     @classmethod
     def one_recipe(cls,data):
-        query = "SELECT * FROM users JOIN recipes ON users.id = recipes.users_id WHERE recipes.id = %(id)s"
-        users_recipe = connectToMySQL("users_recipes_schema").query_db(query,data)
-        the_recipe = User(users_recipe[0])
-
-        for recipe in users_recipe:
-            recipe_data = {
-                "id": recipe["id"],
-                "name": recipe["name"],
-                "made_on": recipe["made_on"],
-                "under_30": recipe["under_30"],
-                "description": recipe["description"],
-                "instructions": recipe["instructions"],
-                "created_at": recipe["created_at"],
-                "updated_at": recipe["updated_at"],
-                "users_id" : recipe["users_id"]
-            }
-
-            the_recipe.recipes.append(recipe.Recipe(recipe_data))
-
+        print(data)
+        query = f"SELECT * FROM recipes WHERE id={data.get('recipe_id')} LIMIT 1"
+        requested_recipe = connectToMySQL("users_recipes_schema").query_db(query,data)
+        the_recipe = requested_recipe[0]
         return the_recipe

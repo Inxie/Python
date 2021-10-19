@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{one_recipe.name}}</title>
+</head>
+<body>
+    <h1>{{one_recipe.name}}</h1>
+    <h3>Description:</h3>
+    <p>{{one_recipe.description}}</p>
+    <h3>Under 30 Minutes:</h3>
+    <!-- converting boolean radio to yes/no -->
+    {% if one_recipe.under_30 %}
+    <p>Yes</p>
+    {% else %}
+    <p>No</p>
+    {% endif %}
+    <h3>Instructions:</h3>
+    <p>{{one_recipe.instructions}}</p>
+    <h3>Date Made:</h3>
+    <p>{{one_recipe.made_on}}</p>
+</body>
+</html>

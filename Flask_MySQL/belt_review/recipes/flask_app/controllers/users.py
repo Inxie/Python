@@ -61,14 +61,6 @@ def logout():
     session.clear()
     return redirect("/")
 
-@app.route("/recipes")
-def one_recipe():
-    data = {
-        "id":id
-    }
-    one_recipe = User.one_recipe(data)
-    return render_template("recipes.html", one_recipe=one_recipe)
-
 @app.route("/recipes/new", methods=["POST","GET"])
 def new_recipe():
     if request.method == "POST":
@@ -79,7 +71,8 @@ def new_recipe():
             "made_on": request.form["made_on"],
             "under_30": request.form["under_30"],
             "description": request.form["description"],
-            "instructions": request.form["instructions"]
+            "instructions": request.form["instructions"],
+            "user_id": session.get("user_id")
         }
         Recipe.new_recipe(data)
         if Recipe.validate(request.form):
@@ -88,3 +81,12 @@ def new_recipe():
             return redirect("/recipes/new")
     else:
         return render_template("new.html")
+
+@app.route("/recipes/<int:id>")
+def show_one_recipe(id):
+    data = {
+        "id":id,
+        "recipe_id":id
+    }
+    one_recipe = User.one_recipe(data)
+    return render_template("recipes.html", one_recipe=one_recipe)
