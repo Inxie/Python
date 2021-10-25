@@ -59,7 +59,7 @@ class User:
 
     @classmethod
     def check_by_email(cls,data):
-        query = "SELECT * FROM users WHERE email = %(email)s;"
+        query = "SELECT * FROM users WHERE email = %(email)s"
         results = connectToMySQL("users_schema").query_db(query,data)
         if len(results) < 1:
             return False

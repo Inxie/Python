@@ -19,7 +19,7 @@
         {% for r in recipe %}
         <tr>
             <td>{{r.name}}</td>
-            <td>{{r.under_30}}</td>
+            <td>{{r.under_30}}</td> <!-- if in session, do this - if user in session = user id - if session[user_id] = user_id -->
         </tr>
         {% endfor %}
     </table>

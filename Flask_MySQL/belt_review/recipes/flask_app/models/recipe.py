@@ -7,6 +7,7 @@ from flask_app.models import user
 class Recipe:
     def __init__(self,data):
         self.id = data["id"]
+        self.name = data["name"]
         self.made_on = data["made_on"]
         self.under_30 = data["under_30"]
         self.description = data["description"]
@@ -19,7 +20,7 @@ class Recipe:
     def new_recipe(cls,data):
         print(data.get("user_id"))
         print(type(data.get("user_id"))) 
-        query = f"INSERT INTO recipes (name, made_on, under_30, description, instructions, users_id) VALUES (%(name)s, %(made_on)s, %(under_30)s, %(description)s, %(instructions)s, {data['users_id']})"
+        query = f"INSERT INTO recipes (name, made_on, under_30, description, instructions, users_id) VALUES (%(name)s, %(made_on)s, %(under_30)s, %(description)s, %(instructions)s, {data['user_id']})"
         print(query)
         return connectToMySQL("users_recipes_schema").query_db(query,data)
     
@@ -34,5 +35,8 @@ class Recipe:
             is_valid = False
         if len(data["instructions"]) < 3:
             flash("Instructions are required.")
+            is_valid = False
+        if not data["made_on"]:
+            flash("Date made is required.")
             is_valid = False
         return is_valid

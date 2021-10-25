@@ -85,7 +85,6 @@ def new_recipe():
 @app.route("/recipes/<int:id>")
 def show_one_recipe(id):
     data = {
-        "id":id,
         "recipe_id":id
     }
     one_recipe = User.one_recipe(data)
